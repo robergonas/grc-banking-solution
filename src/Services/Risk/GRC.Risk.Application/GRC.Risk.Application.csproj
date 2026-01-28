@@ -12,10 +12,10 @@
     <PackageReference Include="MediatR" Version="12.2.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\GRC.Risk.Domain\GRC.Risk.Domain.csproj" />
-    <ProjectReference Include="..\src\BuildingBlocks\GRC.BuildingBlocks.EventBus\GRC.BuildingBlocks.EventBus.csproj" />
-    <ProjectReference Include="..\src\BuildingBlocks\GRC.BuildingBlocks.IntegrationEvents\GRC.BuildingBlocks.IntegrationEvents.csproj" />
+  <ItemGroup>    
+    <ProjectReference Include="..\..\..\BuildingBlocks\GRC.BuildingBlocks.EventBus\GRC.BuildingBlocks.EventBus.csproj" />    
+    <ProjectReference Include="..\..\..\BuildingBlocks\GRC.BuildingBlocks.IntegrationEvents\GRC.BuildingBlocks.IntegrationEvents.csproj" />    
+    <ProjectReference Include="..\GRC.Risk.Domain\GRC.Risk.Domain.csproj" />     
   </ItemGroup>
 
 </Project>
