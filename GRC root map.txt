@@ -1,0 +1,402 @@
+# GRC Banking Solution - Roadmap de Desarrollo
+
+## ✅ FASE 1: IDENTITY & ACCESS MANAGEMENT (COMPLETADO)
+- [x] Domain Layer (Entities, Value Objects, Repositories)
+- [x] Application Layer (Commands, Queries, DTOs)
+- [x] Infrastructure Layer (DbContext, Repositories, JWT)
+- [x] API Layer (Controllers, Authentication, Swagger)
+- [x] Endpoints básicos funcionando
+
+---
+
+## 🔄 FASE 2: COMPLETAR MÓDULO IDENTITY (SIGUIENTE)
+
+### 2.1 Gestión de Roles y Permisos
+**Prioridad: ALTA** | **Tiempo estimado: 3-4 días**
+
+#### Endpoints a desarrollar:
+```
+POST   /api/Roles                    # Crear rol
+GET    /api/Roles                    # Listar roles
+GET    /api/Roles/{id}               # Obtener rol por ID
+PUT    /api/Roles/{id}               # Actualizar rol
+DELETE /api/Roles/{id}               # Eliminar rol
+POST   /api/Roles/{id}/permissions   # Asignar permisos a rol
+GET    /api/Roles/{id}/permissions   # Obtener permisos de un rol
+```
+
+#### Componentes a crear:
+- [ ] `RolesController.cs`
+- [ ] `PermissionsController.cs`
+- [ ] Commands: `CreateRole`, `UpdateRole`, `DeleteRole`, `AssignPermissions`
+- [ ] Queries: `GetRoles`, `GetRoleById`, `GetPermissionsByRole`
+- [ ] `RoleDto`, `PermissionDto`
+
+### 2.2 Funcionalidades Avanzadas de Usuario
+**Prioridad: MEDIA** | **Tiempo estimado: 2-3 días**
+
+#### Endpoints a desarrollar:
+```
+POST   /api/Auth/forgot-password        # Solicitar reseteo de contraseña
+POST   /api/Auth/reset-password         # Resetear contraseña con token
+POST   /api/Auth/refresh-token          # Refrescar JWT token
+GET    /api/Users/me                    # Obtener perfil del usuario actual
+PUT    /api/Users/me                    # Actualizar perfil propio
+POST   /api/Users/{id}/activate         # Activar usuario
+POST   /api/Users/{id}/unlock           # Desbloquear usuario
+GET    /api/Users/{id}/audit-log        # Historial de accesos del usuario
+```
+
+#### Componentes a crear:
+- [ ] Commands: `ForgotPassword`, `ResetPassword`, `RefreshToken`, `ActivateUser`, `UnlockUser`
+- [ ] Queries: `GetCurrentUser`, `GetUserAuditLog`
+- [ ] Sistema de tokens para reset de contraseña
+- [ ] Auditoría de accesos
+
+### 2.3 Testing del Módulo Identity
+**Prioridad: ALTA** | **Tiempo estimado: 2 días**
+
+- [ ] Unit Tests para Domain entities
+- [ ] Unit Tests para Application handlers
+- [ ] Integration Tests para API endpoints
+- [ ] Tests de seguridad (JWT, permisos)
+
+---
+
+## 📋 FASE 3: MÓDULO GOVERNANCE (GOBERNANZA)
+
+### 3.1 Gestión de Políticas
+**Prioridad: ALTA** | **Tiempo estimado: 5-6 días**
+
+#### Funcionalidades principales:
+- CRUD completo de políticas corporativas
+- Versionamiento de políticas
+- Workflow de aprobación
+- Notificaciones de cambios
+- Documentos adjuntos
+
+#### Endpoints principales:
+```
+POST   /api/Policies                      # Crear política
+GET    /api/Policies                      # Listar políticas
+GET    /api/Policies/{id}                 # Obtener política
+PUT    /api/Policies/{id}                 # Actualizar política
+DELETE /api/Policies/{id}                 # Eliminar política
+POST   /api/Policies/{id}/approve         # Aprobar política
+POST   /api/Policies/{id}/publish         # Publicar política
+GET    /api/Policies/{id}/versions        # Historial de versiones
+POST   /api/Policies/{id}/documents       # Adjuntar documento
+```
+
+### 3.2 Gestión de Comités
+**Prioridad: ALTA** | **Tiempo estimado: 4-5 días**
+
+#### Funcionalidades principales:
+- CRUD de comités de gobernanza
+- Gestión de miembros
+- Programación de reuniones
+- Registro de decisiones
+- Actas de reuniones
+
+#### Endpoints principales:
+```
+POST   /api/Committees                    # Crear comité
+GET    /api/Committees                    # Listar comités
+GET    /api/Committees/{id}               # Obtener comité
+PUT    /api/Committees/{id}               # Actualizar comité
+POST   /api/Committees/{id}/members       # Agregar miembro
+DELETE /api/Committees/{id}/members/{uid} # Remover miembro
+POST   /api/Committees/{id}/meetings      # Programar reunión
+GET    /api/Committees/{id}/meetings      # Listar reuniones
+POST   /api/Meetings/{id}/decisions       # Registrar decisión
+```
+
+### 3.3 Dashboard de Governance
+**Prioridad: MEDIA** | **Tiempo estimado: 3 días**
+
+- [ ] Estadísticas de políticas
+- [ ] Próximas reuniones
+- [ ] Políticas pendientes de revisión
+- [ ] Decisiones recientes
+
+---
+
+## 🎯 FASE 4: MÓDULO RISK (GESTIÓN DE RIESGOS)
+
+### 4.1 Catálogo de Riesgos
+**Prioridad: ALTA** | **Tiempo estimado: 5-6 días**
+
+#### Funcionalidades principales:
+- CRUD de riesgos
+- Categorización (Operacional, Financiero, Reputacional, etc.)
+- Matriz de riesgos (Probabilidad x Impacto)
+- Propietarios de riesgos
+- Estados del riesgo
+
+#### Endpoints principales:
+```
+POST   /api/Risks                         # Crear riesgo
+GET    /api/Risks                         # Listar riesgos
+GET    /api/Risks/{id}                    # Obtener riesgo
+PUT    /api/Risks/{id}                    # Actualizar riesgo
+POST   /api/Risks/{id}/assess             # Evaluar riesgo
+GET    /api/Risks/matrix                  # Matriz de riesgos
+GET    /api/Risks/heatmap                 # Mapa de calor
+```
+
+### 4.2 Gestión de Controles
+**Prioridad: ALTA** | **Tiempo estimado: 4-5 días**
+
+#### Funcionalidades principales:
+- CRUD de controles
+- Vinculación controles-riesgos
+- Efectividad de controles
+- Pruebas de controles
+- Documentación de evidencias
+
+#### Endpoints principales:
+```
+POST   /api/Controls                      # Crear control
+GET    /api/Controls                      # Listar controles
+GET    /api/Controls/{id}                 # Obtener control
+PUT    /api/Controls/{id}                 # Actualizar control
+POST   /api/Controls/{id}/test            # Probar control
+POST   /api/Controls/{id}/evidence        # Adjuntar evidencia
+GET    /api/Risks/{id}/controls           # Controles de un riesgo
+```
+
+### 4.3 Evaluaciones y Reportes
+**Prioridad: MEDIA** | **Tiempo estimado: 4 días**
+
+- [ ] Assessment periódicos de riesgos
+- [ ] Reportes de riesgos por área
+- [ ] Trending de riesgos
+- [ ] Exportación a PDF/Excel
+
+---
+
+## 🔒 FASE 5: MÓDULO COMPLIANCE (CUMPLIMIENTO NORMATIVO)
+
+### 5.1 Catálogo de Regulaciones
+**Prioridad: ALTA** | **Tiempo estimado: 4-5 días**
+
+#### Funcionalidades principales:
+- CRUD de regulaciones
+- Artículos y obligaciones
+- Mapeo con controles
+- Fechas de vigencia
+- Actualizaciones normativas
+
+#### Endpoints principales:
+```
+POST   /api/Regulations                   # Crear regulación
+GET    /api/Regulations                   # Listar regulaciones
+GET    /api/Regulations/{id}              # Obtener regulación
+PUT    /api/Regulations/{id}              # Actualizar regulación
+POST   /api/Regulations/{id}/articles     # Agregar artículo
+GET    /api/Regulations/{id}/obligations  # Obligaciones
+```
+
+### 5.2 Gestión de Incidentes
+**Prioridad: ALTA** | **Tiempo estimado: 5 días**
+
+#### Funcionalidades principales:
+- Registro de incidentes
+- Clasificación y severidad
+- Investigación
+- Planes de acción
+- Reportes regulatorios
+
+#### Endpoints principales:
+```
+POST   /api/Incidents                     # Registrar incidente
+GET    /api/Incidents                     # Listar incidentes
+GET    /api/Incidents/{id}                # Obtener incidente
+PUT    /api/Incidents/{id}                # Actualizar incidente
+POST   /api/Incidents/{id}/investigate    # Iniciar investigación
+POST   /api/Incidents/{id}/action-plan    # Crear plan de acción
+POST   /api/Incidents/{id}/report         # Generar reporte
+```
+
+### 5.3 Reportes Regulatorios
+**Prioridad: MEDIA** | **Tiempo estimado: 4 días**
+
+- [ ] Templates de reportes por entidad reguladora
+- [ ] Calendario de reportes
+- [ ] Generación automática
+- [ ] Envío a reguladores
+
+---
+
+## 🔄 FASE 6: INTEGRACIÓN Y EVENT BUS
+
+### 6.1 RabbitMQ Integration Events
+**Prioridad: ALTA** | **Tiempo estimado: 3-4 días**
+
+- [ ] Configurar RabbitMQ
+- [ ] Implementar Event Bus
+- [ ] Integration Events entre módulos:
+  - Identity → Governance (UserCreated, UserRolesChanged)
+  - Governance → Compliance (PolicyApproved, PolicyExpired)
+  - Risk → Compliance (RiskEscalated, ControlFailed)
+  - Compliance → Risk (IncidentReported, RegulationAdded)
+
+### 6.2 Event Handlers
+**Prioridad: ALTA** | **Tiempo estimado: 3 días**
+
+- [ ] Handlers en cada módulo
+- [ ] Logging de eventos
+- [ ] Retry policies
+- [ ] Dead letter queue
+
+---
+
+## 🎨 FASE 7: API GATEWAY
+
+### 7.1 Ocelot Configuration
+**Prioridad: MEDIA** | **Tiempo estimado: 3 días**
+
+- [ ] Configurar Ocelot
+- [ ] Routing a microservicios
+- [ ] Rate limiting
+- [ ] Load balancing
+- [ ] Aggregation de respuestas
+
+### 7.2 Seguridad en Gateway
+**Prioridad: ALTA** | **Tiempo estimado: 2 días**
+
+- [ ] JWT validation
+- [ ] CORS policies
+- [ ] Request/Response logging
+- [ ] API versioning
+
+---
+
+## 📊 FASE 8: REPORTING & ANALYTICS
+
+### 8.1 Dashboards
+**Prioridad: MEDIA** | **Tiempo estimado: 5 días**
+
+- [ ] Dashboard ejecutivo GRC
+- [ ] Dashboard de riesgos
+- [ ] Dashboard de compliance
+- [ ] Indicadores clave (KPIs)
+
+### 8.2 Reportes
+**Prioridad: MEDIA** | **Tiempo estimado: 4 días**
+
+- [ ] Motor de reportes (SQL Server Reporting Services o similar)
+- [ ] Templates personalizables
+- [ ] Exportación (PDF, Excel, CSV)
+- [ ] Programación de reportes
+
+---
+
+## 🚀 FASE 9: DEPLOYMENT & DEVOPS
+
+### 9.1 Containerización
+**Prioridad: MEDIA** | **Tiempo estimado: 3 días**
+
+- [ ] Dockerfiles para cada microservicio
+- [ ] Docker Compose para desarrollo
+- [ ] Docker Compose para producción
+- [ ] Optimización de imágenes
+
+### 9.2 CI/CD Pipeline
+**Prioridad: MEDIA** | **Tiempo estimado: 3 días**
+
+- [ ] Azure DevOps / GitHub Actions
+- [ ] Build pipeline
+- [ ] Test pipeline
+- [ ] Deploy pipeline
+- [ ] Ambientes (Dev, QA, Prod)
+
+### 9.3 Monitoring
+**Prioridad: ALTA** | **Tiempo estimado: 2 días**
+
+- [ ] Application Insights
+- [ ] Health checks avanzados
+- [ ] Alertas
+- [ ] Performance monitoring
+
+---
+
+## 🧪 FASE 10: TESTING COMPLETO
+
+### 10.1 Testing por Módulo
+**Prioridad: ALTA** | **Tiempo estimado: 7-8 días**
+
+- [ ] Unit Tests (cobertura > 80%)
+- [ ] Integration Tests
+- [ ] E2E Tests
+- [ ] Performance Tests
+- [ ] Security Tests
+
+---
+
+## 📱 FASE 11: FRONTEND (OPCIONAL)
+
+### 11.1 Web Application
+**Prioridad: BAJA** | **Tiempo estimado: 20-25 días**
+
+- [ ] React/Angular/Vue frontend
+- [ ] Autenticación
+- [ ] Módulos de gestión
+- [ ] Dashboards interactivos
+
+---
+
+## 📈 ESTIMACIÓN TOTAL
+
+| Fase | Tiempo Estimado | Prioridad |
+|------|----------------|-----------|
+| 1. Identity ✅ | 7 días | ALTA |
+| 2. Identity Completo | 7-9 días | ALTA |
+| 3. Governance | 12-14 días | ALTA |
+| 4. Risk | 13-15 días | ALTA |
+| 5. Compliance | 13-14 días | ALTA |
+| 6. Event Bus | 6-7 días | ALTA |
+| 7. API Gateway | 5 días | MEDIA |
+| 8. Reporting | 9 días | MEDIA |
+| 9. DevOps | 8 días | MEDIA |
+| 10. Testing | 7-8 días | ALTA |
+| 11. Frontend | 20-25 días | BAJA |
+
+**TOTAL (Backend completo sin Frontend): 80-90 días**
+**TOTAL (Con Frontend): 100-115 días**
+
+---
+
+## 🎯 RECOMENDACIÓN: PRÓXIMOS PASOS INMEDIATOS
+
+### Opción A: Completar Identity (Recomendado)
+1. Gestión de Roles y Permisos (3-4 días)
+2. Funcionalidades avanzadas de usuario (2-3 días)
+3. Testing del módulo (2 días)
+
+**Beneficio**: Tener un módulo 100% completo y probado antes de continuar.
+
+### Opción B: Comenzar Governance
+1. Estructura del proyecto Governance
+2. Domain layer (Políticas, Comités)
+3. Application layer (Commands, Queries)
+
+**Beneficio**: Avanzar más rápido en funcionalidad visible del negocio.
+
+### Opción C: Event Bus & Integration
+1. Configurar RabbitMQ
+2. Implementar Event Bus base
+3. Crear los primeros Integration Events
+
+**Beneficio**: Establecer la comunicación entre módulos desde el inicio.
+
+---
+
+## ❓ ¿Cuál es tu preferencia?
+
+1. **¿Completar Identity primero?** (Más seguro, más profesional)
+2. **¿Avanzar a Governance?** (Más funcionalidad de negocio)
+3. **¿Implementar Event Bus?** (Mejor arquitectura desde el inicio)
+4. **¿Otro enfoque?**
+
+Dime cuál prefieres y comenzamos de inmediato. 🚀
